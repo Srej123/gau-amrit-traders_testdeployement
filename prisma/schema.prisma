@@ -1,0 +1,74 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Product {
+  id           String   @id @default(cuid())
+  name         String
+  slug         String   @unique
+  description  String
+  price        String
+  originalPrice String  @default("")
+  category     String   @default("ro-systems")
+  images       String   @default("[]")
+  videoUrl     String   @default("")
+  features     String   @default("[]")
+  specs        String   @default("{}")
+  technology   String   @default("")
+  capacity     String   @default("")
+  warranty     String   @default("1 Year")
+  tdsRange     String   @default("")
+  order        Int      @default(0)
+  active       Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Store {
+  id            String   @id @default(cuid())
+  name          String
+  phone         String
+  address       String
+  googleMapUrl  String   @default("")
+  googleReviewUrl String @default("")
+  hours         String   @default("Mon-Sun 9AM-8PM")
+  isVerified    Boolean  @default(false)
+  order         Int      @default(0)
+  active        Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model SiteSetting {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     String
+  updatedAt DateTime @updatedAt
+}
+
+model Admin {
+  id        String   @id @default(cuid())
+  username  String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Testimonial {
+  id        String   @id @default(cuid())
+  name      String
+  location  String
+  rating    Int      @default(5)
+  review    String
+  image     String   @default("")
+  order     Int      @default(0)
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
